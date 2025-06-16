@@ -1,0 +1,142 @@
+:root {
+    --primary-color: #8B6B4A;
+    --secondary-color: #D2B48C;
+    --light-beige: #F5F0E6;
+    --dark-brown: #5D4037;
+    --accent-color: #A1887F;
+}
+
+body {
+    background-color: #FAF9F6;
+    font-family: 'Georgia', serif;
+    color: var(--dark-brown);
+}
+
+.form-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(139, 107, 74, 0.1);
+    border: 1px solid rgba(139, 107, 74, 0.1);
+}
+
+h2 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--secondary-color);
+}
+
+.form-control, .form-select {
+    border: 1px solid var(--secondary-color);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(139, 107, 74, 0.25);
+}
+
+.input-group-text {
+    background-color: var(--light-beige);
+    color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-brown);
+    border-color: var(--dark-brown);
+    transform: translateY(-2px);
+}
+
+.error-message {
+    color: #C17C74;
+    font-size: 0.85em;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.g-recaptcha {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--dark-brown);
+    margin-bottom: 0.5rem;
+}
+
+.floating-label {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.floating-label .form-control {
+    padding-top: 1.5rem;
+}
+
+.floating-label label {
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    color: var(--accent-color);
+    transition: all 0.2s;
+    pointer-events: none;
+}
+
+.floating-label .form-control:focus + label,
+.floating-label .form-control:not(:placeholder-shown) + label {
+    top: 0.2rem;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+}
+
+.decoration-leaf {
+    position: absolute;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.decoration-leaf-1 {
+    top: 50px;
+    right: 50px;
+    transform: rotate(15deg);
+}
+
+.decoration-leaf-2 {
+    bottom: 30px;
+    left: 40px;
+    transform: rotate(-10deg);
+}

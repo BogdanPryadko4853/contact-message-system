@@ -3,154 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us | Elegant Form</title>
+    <title>Контактная форма | Элегантный дизайн</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <style>
-        :root {
-            --primary-color: #8B6B4A;
-            --secondary-color: #D2B48C;
-            --light-beige: #F5F0E6;
-            --dark-brown: #5D4037;
-            --accent-color: #A1887F;
-        }
-
-        body {
-            background-color: #FAF9F6;
-            font-family: 'Georgia', serif;
-            color: var(--dark-brown);
-        }
-
-        .form-container {
-            max-width: 700px;
-            margin: 3rem auto;
-            padding: 2.5rem;
-            border-radius: 12px;
-            background: white;
-            box-shadow: 0 10px 30px rgba(139, 107, 74, 0.1);
-            border: 1px solid rgba(139, 107, 74, 0.1);
-        }
-
-        h2 {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background: var(--secondary-color);
-        }
-
-        .form-control, .form-select {
-            border: 1px solid var(--secondary-color);
-            border-radius: 6px;
-            padding: 0.75rem 1rem;
-            transition: all 0.3s;
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(139, 107, 74, 0.25);
-        }
-
-        .input-group-text {
-            background-color: var(--light-beige);
-            color: var(--primary-color);
-            border: 1px solid var(--secondary-color);
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-            padding: 0.75rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--dark-brown);
-            border-color: var(--dark-brown);
-            transform: translateY(-2px);
-        }
-
-        .error-message {
-            color: #C17C74;
-            font-size: 0.85em;
-            margin-top: 0.25rem;
-            font-style: italic;
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .g-recaptcha {
-            margin: 1.5rem 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: var(--dark-brown);
-            margin-bottom: 0.5rem;
-        }
-
-        .floating-label {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .floating-label .form-control {
-            padding-top: 1.5rem;
-        }
-
-        .floating-label label {
-            position: absolute;
-            top: 0.5rem;
-            left: 1rem;
-            color: var(--accent-color);
-            transition: all 0.2s;
-            pointer-events: none;
-        }
-
-        .floating-label .form-control:focus + label,
-        .floating-label .form-control:not(:placeholder-shown) + label {
-            top: 0.2rem;
-            font-size: 0.75rem;
-            color: var(--primary-color);
-        }
-
-        .decoration-leaf {
-            position: absolute;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        .decoration-leaf-1 {
-            top: 50px;
-            right: 50px;
-            transform: rotate(15deg);
-        }
-
-        .decoration-leaf-2 {
-            bottom: 30px;
-            left: 40px;
-            transform: rotate(-10deg);
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/form.css}">
 </head>
 <body>
 <div class="decoration-leaf decoration-leaf-1">
@@ -167,14 +24,14 @@
 
 <div class="container py-5">
     <div class="form-container">
-        <h2 class="text-center">Contact Us</h2>
+        <h2 class="text-center">Свяжитесь с нами</h2>
 
         <form th:action="@{/submit}" th:object="${messageForm}" method="post">
-            <!-- Full Name -->
+            <!-- Полное имя -->
             <div class="floating-label mb-4">
                 <input type="text" class="form-control" id="fullName" th:field="*{fullName}"
                        placeholder=" ">
-                <label for="fullName">Full Name</label>
+                <label for="fullName">ФИО</label>
                 <div class="error-message" th:if="${#fields.hasErrors('fullName')}"
                      th:errors="*{fullName}"></div>
             </div>
@@ -183,29 +40,30 @@
             <div class="floating-label mb-4">
                 <input type="email" class="form-control" id="email" th:field="*{email}"
                        placeholder=" ">
-                <label for="email">Email Address</label>
+                <label for="email">Электронная почта</label>
                 <div class="error-message" th:if="${#fields.hasErrors('email')}"
                      th:errors="*{email}"></div>
             </div>
 
-            <!-- Phone -->
+            <!-- Телефон -->
             <div class="mb-4">
-                <label for="phone" class="form-label">Phone Number</label>
+                <label for="phone" class="form-label">Номер телефона</label>
                 <div class="input-group">
-                    <span class="input-group-text">+7</span>
                     <input type="tel" class="form-control" id="phone"
-                           th:field="*{phone}" placeholder="920 552 16 95"
+                           th:field="*{phone}"
+                           placeholder="*** *** ** **"
                            maxlength="15">
                 </div>
                 <div class="error-message" th:if="${#fields.hasErrors('phone')}"
                      th:errors="*{phone}"></div>
             </div>
 
-            <!-- Topic -->
+
+            <!-- Тема -->
             <div class="mb-4">
-                <label for="topicId" class="form-label">Topic</label>
+                <label for="topicId" class="form-label">Тема обращения</label>
                 <select class="form-select" id="topicId" th:field="*{topicId}" required>
-                    <option value="" disabled selected>Select a topic...</option>
+                    <option value="" disabled selected>Выберите тему...</option>
                     <option th:each="topic : ${topics}"
                             th:value="${topic.id}"
                             th:text="${topic.name}"></option>
@@ -214,11 +72,11 @@
                      th:errors="*{topicId}"></div>
             </div>
 
-            <!-- Message -->
+            <!-- Сообщение -->
             <div class="mb-4">
-                <label for="message" class="form-label">Your Message</label>
+                <label for="message" class="form-label">Ваше сообщение</label>
                 <textarea class="form-control" id="message" th:field="*{message}"
-                          rows="5" placeholder="Write your message here..."></textarea>
+                          rows="5" placeholder="Напишите ваше сообщение здесь..."></textarea>
                 <div class="error-message" th:if="${#fields.hasErrors('message')}"
                      th:errors="*{message}"></div>
             </div>
@@ -233,46 +91,67 @@
                      th:errors="*{captchaResponse}"></div>
             </div>
 
-            <!-- Submit Button -->
+            <!-- Кнопка отправки -->
             <div class="d-grid mt-4">
                 <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-send-fill me-2"></i> Send Message
+                    <i class="bi bi-send-fill me-2"></i> Отправить сообщение
                 </button>
             </div>
         </form>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script th:inline="javascript">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script><script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function() {
         const phoneInput = document.getElementById('phone');
 
         phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
+            let value = e.target.value.replace(/[^\d+]/g, '');
 
-            if (!value.startsWith('7') && value.length > 0) {
-                value = '7' + value;
+            const plusCount = (value.match(/\+/g) || []).length;
+            if (plusCount > 1) {
+                value = '+' + value.replace(/\+/g, '');
             }
 
-            value = value.substring(0, 10);
+            if (value.startsWith('+7')) {
+                value = '+7' + value.substring(2).replace(/\D/g, '');
+            }
 
+            else if (value.startsWith('7')) {
+                value = '+7' + value.substring(1).replace(/\D/g, '');
+            }
+            // Если номер не начинается с +7 или 7, добавляем +7
+            else if (!value.startsWith('+')) {
+                value = '+7' + value.replace(/\D/g, '');
+            }
+
+            // Ограничиваем длину (10 цифр после +7)
+            value = value.substring(0, 12); // +7 и 10 цифр
+
+            // Форматируем с пробелами: +7 XXX XXX XX XX
             let formatted = '';
-            if (value.length > 0) {
-                formatted = value.substring(0, 3);
-                if (value.length > 3) {
-                    formatted += ' ' + value.substring(3, 6);
+            if (value.length > 2) {
+                const digits = value.substring(2);
+                formatted = digits.substring(0, 3);
+                if (digits.length > 3) {
+                    formatted += ' ' + digits.substring(3, 6);
                 }
-                if (value.length > 6) {
-                    formatted += ' ' + value.substring(6, 8);
+                if (digits.length > 6) {
+                    formatted += ' ' + digits.substring(6, 8);
                 }
-                if (value.length > 8) {
-                    formatted += ' ' + value.substring(8, 10);
+                if (digits.length > 8) {
+                    formatted += ' ' + digits.substring(8, 10);
                 }
+            } else {
+                formatted = value;
             }
 
             e.target.value = formatted;
         });
+
+        if (phoneInput.value) {
+            phoneInput.dispatchEvent(new Event('input'));
+        }
     });
 </script>
 </body>
