@@ -10,20 +10,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Contact {
+public class MessageTopic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String name;
 
-    @Column(nullable = false)
-    private String phone;
-
-    @Column(nullable = false)
-    private String fullName;
-
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "topic")
     private List<Message> messages;
 }
