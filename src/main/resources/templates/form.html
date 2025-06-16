@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875em;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        .phone-input {
+            position: relative;
+        }
+        .phone-input .bi-phone {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #6c757d;
+        }
+        .phone-input input {
+            padding-left: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="form-container bg-white">
+        <h2 class="text-center mb-4">Contact Us</h2>
+
+        <form th:action="@{/submit}" th:object="${messageForm}" method="post">
+            <!-- Full Name -->
+            <div class="mb-3">
+                <label for="fullName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fullName" th:field="*{fullName}"
+                       placeholder="Enter your full name">
+                <div class="error-message" th:if="${#fields.hasErrors('fullName')}"
+                     th:errors="*{fullName}"></div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}"
+                       placeholder="Enter your email">
+                <div class="error-message" th:if="${#fields.hasErrors('email')}"
+                     th:errors="*{email}"></div>
+            </div>
+
+            <!-- Phone -->
+            <!-- Phone -->
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                <div class="input-group">
+                    <span class="input-group-text">+7</span>
+                    <input type="tel" class="form-control" id="phone"
+                           th:field="*{phone}" placeholder="920 552 16 95"
+                           maxlength="15">
+                </div>
+                <div class="error-message" th:if="${#fields.hasErrors('phone')}"
+                     th:errors="*{phone}"></div>
+            </div>
+
+            <!-- Topic -->
+            <div class="mb-3">
+                <label for="topicId" class="form-label">Topic</label>
+                <select class="form-select" id="topicId" th:field="*{topicId}" required>
+                    <option value="" disabled selected>Select a topic...</option>
+                    <option th:each="topic : ${topics}"
+                            th:value="${topic.id}"
+                            th:text="${topic.name}"></option>
+                </select>
+                <div class="error-message" th:if="${#fields.hasErrors('topicId')}"
+                     th:errors="*{topicId}"></div>
+            </div>
+
+            <!-- Message -->
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" th:field="*{message}"
+                          rows="4" placeholder="Enter your message"></textarea>
+                <div class="error-message" th:if="${#fields.hasErrors('message')}"
+                     th:errors="*{message}"></div>
+            </div>
+
+            <!-- CAPTCHA -->
+            <div class="mb-3">
+                <div class="g-recaptcha"
+                     data-sitekey="6LermGIrAAAAAFB4cERzLSCYjfh0nZJ4cI5YvEvJ"
+                     th:attr="data-sitekey=${@environment.getProperty('recaptcha.site')}"></div>
+                <input type="hidden" th:field="*{captchaResponse}" id="captchaResponse">
+                <div class="error-message" th:if="${#fields.hasErrors('captchaResponse')}"
+                     th:errors="*{captchaResponse}"></div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneInput = document.getElementById('phone');
+
+        phoneInput.addEventListener('input', function(e) {
+            // Удаляем все нецифровые символы кроме +
+            let value = e.target.value.replace(/[^\d+]/g, '');
+
+            // Если нет +7 в начале - добавляем
+            if (!value.startsWith('+7')) {
+                value = '+7' + value.replace(/^\+/, '');
+            }
+
+            // Ограничиваем длину (10 цифр после +7)
+            value = value.substring(0, 12);
+
+            // Форматируем: +7 920 552 16 95
+            let formatted = '+7';
+            if (value.length > 2) {
+                const digits = value.substring(2);
+                if (digits.length > 0) {
+                    formatted += ' ' + digits.substring(0, 3);
+                }
+                if (digits.length > 3) {
+                    formatted += ' ' + digits.substring(3, 6);
+                }
+                if (digits.length > 6) {
+                    formatted += ' ' + digits.substring(6, 8);
+                }
+                if (digits.length > 8) {
+                    formatted += ' ' + digits.substring(8, 10);
+                }
+            }
+
+            e.target.value = formatted;
+        });
+    });
+</script>
+</body>
+</html>

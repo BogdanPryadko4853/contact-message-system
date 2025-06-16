@@ -15,8 +15,8 @@ public class MessageForm {
     @Email(message = "Email should be valid")
     private String email;
 
-    @NotBlank(message = "Phone is required")
-    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Phone number should be valid")
+    @Pattern(regexp = "^\\+7\\d{10}$",
+            message = "Phone must be in format +7XXXXXXXXXX")
     private String phone;
 
     @NotNull(message = "Topic is required")
@@ -24,4 +24,7 @@ public class MessageForm {
 
     @NotBlank(message = "Message is required")
     private String message;
+
+    @NotBlank(message = "CAPTCHA verification is required")
+    private String captchaResponse;
 }

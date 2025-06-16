@@ -3,6 +3,7 @@ package com.softrast.contactmessagesystem.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,6 +19,10 @@ public class MessageTopic {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "topic")
-    private List<Message> messages;
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
+    private List<Message> messages = new ArrayList<>();
+
+    public MessageTopic(String name) {
+        this.name = name;
+    }
 }
