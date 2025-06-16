@@ -120,15 +120,13 @@
             else if (value.startsWith('7')) {
                 value = '+7' + value.substring(1).replace(/\D/g, '');
             }
-            // Если номер не начинается с +7 или 7, добавляем +7
+
             else if (!value.startsWith('+')) {
                 value = '+7' + value.replace(/\D/g, '');
             }
 
-            // Ограничиваем длину (10 цифр после +7)
-            value = value.substring(0, 12); // +7 и 10 цифр
+            value = value.substring(0, 12);
 
-            // Форматируем с пробелами: +7 XXX XXX XX XX
             let formatted = '';
             if (value.length > 2) {
                 const digits = value.substring(2);
